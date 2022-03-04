@@ -32,6 +32,10 @@ inputs:
   target:
     description: "Target foler"
     required: true
+  switches:
+    description: "Argument for rsync"
+    required: false
+    default: '-vzr --progress'
 
 description: 'Rsync to autoscaling group'
 branding:
@@ -51,3 +55,4 @@ runs:
     KEY: ${{inputs.key}}
     SOURCE: ${{inputs.source}}
     TARGET: ${{inputs.target}}
+    SWITCES: ${{inputs.switches}}

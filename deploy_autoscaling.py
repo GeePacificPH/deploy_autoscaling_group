@@ -16,6 +16,7 @@ remote_key = os.getenv('KEY')
 remote_key_file = '/.ssh/id_rsa'
 remote_path = os.getenv('TARGET')
 local_path = os.getenv('GITHUB_WORKSPACE')+'/'+os.getenv('SOURCE')
+switches =  os.getenv('SWITCHES').split()
 
 # Get instance DNS name info base on name tag
 def get_info(instance_name):
@@ -34,7 +35,8 @@ def get_info(instance_name):
 
 # Sync file
 def sync_file_key(r_host):
-    args = ['rsync','-vzr','--progress','-e','ssh -o StrictHostKeyChecking=no -i '+remote_key_file+' -p'+remote_port,local_path,remote_user+'@'+r_host+':'+remote_path]
+    args = ['rsync']+switches+['-e','ssh -o StrictHostKeyChecking=no -i '+remote_key_file+' -p '+remote_port,local_path,remote_user+'@'+r_host+':'+remote_path]
+    print(args)
     try:
         p = run(args,capture_output=True)
         if p.returncode!=0:
@@ -45,7 +47,7 @@ def sync_file_key(r_host):
         sys.exit(str(p.returncode))
     
 def sync_file_pwd(r_host):
-    args = ['rsync','-vzr','--progress','-e','sshpass -p '+remote_pass+' ssh -o StrictHostKeyChecking=no -p '+remote_port,local_path,remote_user+'@'+r_host+':'+remote_path]
+    args = ['rsync']+switches+['-e','sshpass -p '+remote_pass+' ssh -o StrictHostKeyChecking=no -p '+remote_port,local_path,remote_user+'@'+r_host+':'+remote_path]
     try:
         p = run(args,capture_output=True)
         if p.returncode!=0:
@@ -59,9 +61,9 @@ def sync_file_pwd(r_host):
 def main():
     addresses=[get_info(instance_name=remote_name_tag)]
     if remote_key!='':
-        f = open(remote_key_file, "w")
-        f.write(str(os.getenv('KEY')))
-        f.close()
+        # f = open(remote_key_file, "w")
+        # f.write(str(os.getenv('KEY')))
+        # f.close()
         p = run(['chmod','600',remote_key_file])
         for address in addresses:
             sync_file_key(r_host=address)
