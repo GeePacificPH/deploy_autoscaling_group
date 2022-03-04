@@ -1,6 +1,7 @@
 # usage
 - target: upload file/folder to AWS autoscaling group, using EC2 instance name tag and rsynch algorithm
 - e.g:
+```
     - name: Upload with rsynch \
       uses: ./ \
       with: \
@@ -14,3 +15,4 @@
         key: ${{secrets.KEY}} \
         source: 'source file path' \
         target: 'target file path'
+```
