@@ -3,7 +3,7 @@
 - e.g:
 ```
     - name: Upload with rsynch 
-      uses: GeePacificPH/deploy_autoscaling_group 
+      uses: GeePacificPH/deploy_autoscaling_group@v2.0.0
       with: 
         key_id: ${{secrets.KEY_ID}} 
         access_key: ${{secrets.ACCESS_KEY}} 
@@ -15,4 +15,7 @@
         key: ${{secrets.KEY}} 
         source: 'source file path' 
         target: 'target file path'
+        switches: '-vzr --progress'
+        remote_owner: ''
+        remote_perm: ''
 ```
