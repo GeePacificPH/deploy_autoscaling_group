@@ -1,0 +1,4 @@
+*.dev
+*.password
+id_rsa*
+*.pem

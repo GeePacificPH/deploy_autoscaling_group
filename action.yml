@@ -1,0 +1,53 @@
+name: Rsync to autoscaling group
+inputs:
+  key_id:
+    description: "AWS access key ID"
+    required: true
+  access_key:
+    description: "AWS secret access key"
+    required: true
+  region:
+    description: "AWS region name"
+    required: true
+  tag:
+    description: "Host name tag"
+    required: true
+  port:
+    description: "SSH port"
+    required: false
+    default: '22'
+  user:
+    description: "SSH username"
+    required: true
+  pass:
+    description: "SSH password"
+    required: false
+  key:
+    description: "SSH private key"
+    required: false
+    default: ''
+  source:
+    description: "Source folder"
+    required: true
+  target:
+    description: "Target foler"
+    required: true
+
+description: 'Rsync to autoscaling group'
+branding:
+  icon: dollar-sign
+  color: gray-dark
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    KEY_ID: ${{inputs.key_id}}
+    ACCESS_KEY: ${{inputs.access_key}}
+    REGION: ${{inputs.region}}
+    TAG: ${{inputs.tag}}
+    PORT: ${{inputs.port}}
+    USER: ${{inputs.user}}
+    PASS: ${{inputs.pass}}
+    KEY: ${{inputs.key}}
+    SOURCE: ${{inputs.source}}
+    TARGET: ${{inputs.target}}
