@@ -3,7 +3,7 @@
 - e.g:
 ```
     - name: Upload with rsynch 
-      uses: ./ 
+      uses: GeePacificPH/deploy_autoscaling_group 
       with: 
         key_id: ${{secrets.KEY_ID}} 
         access_key: ${{secrets.ACCESS_KEY}} 
