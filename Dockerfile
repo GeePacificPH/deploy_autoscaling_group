@@ -6,4 +6,4 @@ RUN mkdir /.ssh && touch /.ssh/id_rsa && chmod 600 /.ssh/id_rsa
 
 WORKDIR "/app"
 COPY . .
-CMD ["python", "deploy_autoscaling.py"]
+CMD ["python", "/app/deploy_autoscaling.py"]
