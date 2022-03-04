@@ -32,6 +32,18 @@ inputs:
   target:
     description: "Target foler"
     required: true
+  switches:
+    description: "Argument for rsync"
+    required: false
+    default: '-vzr --progress'
+  remote_owner:
+    description: "File owner on remote host"
+    required: false
+    default: ''
+  remote_perm:
+    description: "File permission on remote host"
+    required: false
+    default: ''
 
 description: 'Rsync to autoscaling group'
 branding:
@@ -51,3 +63,6 @@ runs:
     KEY: ${{inputs.key}}
     SOURCE: ${{inputs.source}}
     TARGET: ${{inputs.target}}
+    SWITCES: ${{inputs.switches}}
+    OWNER: ${{inputs.remote_owner}}
+    PERM: ${{inputs.remote_perm}}
