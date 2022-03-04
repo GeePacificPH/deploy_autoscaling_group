@@ -63,6 +63,6 @@ runs:
     KEY: ${{inputs.key}}
     SOURCE: ${{inputs.source}}
     TARGET: ${{inputs.target}}
-    SWITCES: ${{inputs.switches}}
+    SWITCHES: ${{inputs.switches}}
     OWNER: ${{inputs.remote_owner}}
     PERM: ${{inputs.remote_perm}}
