@@ -79,7 +79,7 @@ def main():
         sync_file(r_host=address)
         if remote_owner!='' or remote_perm!='':       
             set_perm(r_host=address)
-        sys.stdout.write("Files synchronization succeed")
+        sys.stdout.write("Files synchronization succeed on "+str(address))
 
 if __name__ == "__main__":
     main()
