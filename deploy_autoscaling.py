@@ -14,13 +14,11 @@ remote_port = os.getenv('PORT')
 remote_user = os.getenv('USER')
 remote_pass = os.getenv('PASS')
 remote_key = os.getenv('KEY')
-remote_key_file = '/app/api-autoscaling.pem'
-# remote_key_file = '/.ssh/id_rsa'
+remote_key_file = '/.ssh/id_rsa'
 remote_path = os.getenv('TARGET')
 remote_owner = os.getenv('OWNER')
 remote_perm = os.getenv('PERM')
-local_path = os.getenv('SOURCE')
-# local_path = os.getenv('GITHUB_WORKSPACE')+'/'+os.getenv('SOURCE')
+local_path = os.getenv('GITHUB_WORKSPACE')+'/'+os.getenv('SOURCE')
 switches =  os.getenv('SWITCHES').split()
 
 # Get instance DNS name info base on name tag
@@ -42,9 +40,9 @@ def get_info(instance_name):
 # Sync file
 def sync_file(r_host):
     if remote_key!='':
-        # f = open(remote_key_file, "w")
-        # f.write(str(os.getenv('KEY')))
-        # f.close()
+        f = open(remote_key_file, "w")
+        f.write(str(os.getenv('KEY')))
+        f.close()
         p = run(['chmod','600',remote_key_file])
         args = ['rsync']+switches+['-e','ssh -o StrictHostKeyChecking=no -i '+remote_key_file+' -p '+remote_port,local_path,remote_user+'@'+r_host+':'+remote_path]
     else:
@@ -79,7 +77,6 @@ def set_perm(r_host):
 def main():
     addresses=get_info(instance_name=remote_name_tag)
     for address in addresses:
-        print(address)
         sync_file(r_host=address)
         if remote_owner!='' or remote_perm!='':       
             set_perm(r_host=address)
