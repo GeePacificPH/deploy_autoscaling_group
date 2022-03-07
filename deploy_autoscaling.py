@@ -18,7 +18,7 @@ remote_key_file = '/.ssh/id_rsa'
 remote_path = os.getenv('TARGET')
 remote_owner = os.getenv('OWNER')
 remote_perm = os.getenv('PERM')
-local_path = os.getenv('GITHUB_WORKSPACE')+'/'+os.getenv('SOURCE')
+local_path =os.getenv('GITHUB_WORKSPACE')+'/'+os.getenv('SOURCE')
 switches =  os.getenv('SWITCHES').split()
 
 # Get instance DNS name info base on name tag
@@ -30,6 +30,10 @@ def get_info(instance_name):
             'Name': 'tag:Name',
             'Values': [instance_name]
         },
+        {
+            'Name': 'instance-state-name',
+            'Values': ['running']
+        }
     ],)
     dns_name=[]
     for field1 in Myec2['Reservations']:
@@ -76,6 +80,7 @@ def set_perm(r_host):
 # Main component
 def main():
     addresses=get_info(instance_name=remote_name_tag)
+    print(addresses)
     for address in addresses:
         sync_file(r_host=address)
         if remote_owner!='' or remote_perm!='':       
